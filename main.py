@@ -42,8 +42,6 @@ def printGuessAccuracy(guess, actual):
     # Check if the letter at this index of the user's guess is in the secret word AT ALL or not
     if(letter in secret):
       
-
-      
       # If the letter is in the secret word, is it also AT THE CURRENT INDEX in the secret word?
       if(letter == secret[index]):
 
@@ -52,10 +50,13 @@ def printGuessAccuracy(guess, actual):
 
       # If it's not at the current index, we know by this point in the code that it's still used in the secret word somewhere...
       else:
+        
         # ...so we'll print it out with a yellow background
         printColorfulLetter(letter, True, False)
+        
     # ...but if the letter is not in the word at all...
     else:
+      
       # ...print it out with a red background
       printColorfulLetter(letter, False, False)
     # Don't worry about the line of code below, it works. It just handles the transition between colors
@@ -65,27 +66,53 @@ def printGuessAccuracy(guess, actual):
 def userInput():
   # Create a variable that holds a default value for the users guess
   userGuess = ""
+  
   # Continue to loop the users guess as long as it's NOT six characters
   while(len(userGuess) != 6):
+    
     # Ask the user to enter a six letter word
     userGuess = input("Please enter a six letter word: ")
+    print()
+    
     # Return the users guess in lower case
   return userGuess.lower()
+  
 ### Main Program ###
+  
 # Create a variable that stores the secret word
 secretWord = "flames"
+
 # Create a variable that counts the number of guess attempts
 countTurns = 0
+
 # Create a variable that holds the default value for the last attempt
 lastTurn = ""
-# Create a while loop that loops as long as the guess attemps are less than 6 and NOT the secret word
+
+# Create a while loop that loops as long as the guess attempts are less than 6 and NOT the secret word
 while countTurns < 6 and lastTurn != secretWord:
+
+  # Prompt the user to enter a six letter word by calling the userInput function
   lastTurn = userInput()
+
+  # Display the user's guess using the printGuessAccuracy function
   printGuessAccuracy(lastTurn, secretWord)
+  print()
+  print()
+
+  # Increase the user's guess attempts by 1 
   countTurns += 1
+
+    # If the user's attempts are less than six and do NOT equal the secret word,       display a message to the user that their guess is incorrect
+  if(countTurns < 6 and lastTurn != secretWord):
+    remainingTurns = 6 - countTurns
+    print("Nice try, but your guess is incorrect.")
+    print(f"Please try again.  You have {remainingTurns} turns left.")
+    print()
+  
 # if guesses equals 6, display message to user that they've reached max attempts
 if countTurns == 6:
-    print("You've exceeded your max attempts")
+    print("You've exceeded your max attempts.  Thanks for playing.")
+  
 # if user enters the correct word, display 'Good Job' message
 if lastTurn == secretWord:
     print("GOOD JOB!")
